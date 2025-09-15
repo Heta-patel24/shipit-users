@@ -11,8 +11,15 @@ let waterLog = [];
 // Level 1 Bug 2: Goal input doesn't validate properly
 function setGoal() {
     const goalInput = document.getElementById('goal-input');
-    const newGoal = goalInput.value;
-    
+    if (!goalInput.value || isNaN(goalInput.value) || goalInput.value <= 0) {
+        showNotification('Please enter a valid goal amount', 'error');
+        return;
+    }else if (goalInput.value > 10000) {
+        showNotification('Goal too high! Please enter a value less than 10000 ml', 'error');
+        return;
+    }else{
+        const newGoal = goalInput.value;
+    }
     // Bug: No validation for empty or invalid values
     dailyGoal = newGoal;
     updateProgress();
